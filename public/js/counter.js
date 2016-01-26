@@ -6,6 +6,12 @@ var foodName = document.querySelector('.food-name');
 var foodCalories = document.querySelector('.food-calories');
 var date = document.querySelector('.date');
 var submitButton = document.querySelector('.submit-button');
+var filterButton = document.querySelector('.filter-button');
+var filterAllButton = document.querySelector('.filter-all-button');
+var filterDate = document.querySelector('.filter-date');
+var mealTable = document.querySelector('.meal-table');
+var mealContainer = document.querySelector('.meal-container');
+var sumCalories = document.querySelector('.sum-calories');
 
 submitButton.addEventListener('click', function() {
   var message = {name: foodName.value, calories: foodCalories.value, date: date.value};
@@ -15,7 +21,18 @@ submitButton.addEventListener('click', function() {
   date.value = '';
 });
 
-function sendGET(callback) {
+filterAllButton.addEventListener('click', function() {
+  refresh();
+  filterDate.value= '';
+});
+
+filterButton.addEventListener('click', function() {
+  var newUrl = url + '/filter/' + filterDate.value;
+  sendGET(newUrl, draweMeals);
+});
+
+
+function sendGET(url,callback) {
   var mealsRequest = new XMLHttpRequest();
   mealsRequest .open('GET', url);
   mealsRequest .send();
@@ -39,18 +56,20 @@ function sendPost(url, message, callback) {
 }
 
 function refresh() {
-  sendGET(draweMeals);
+  sendGET(url,draweMeals);
 }
 
-var mealTable = document.querySelector('.meal-table');
 
 var draweMeals = function (response) {
   var mealArray = JSON.parse(response);
   mealTable.innerHTML = '<tr><td>Name</td><td>Calories</td><td>Date</td></tr>';
   mealArray.forEach(function  (meal) {
     addMealToTable(meal,mealTable);
-
+    countCalories(meal.calories);
   });
+  sumCalories.innerText = 'Sum of calories: ' + sum;
+  mealContainer.appendChild(sumCalories);
+  sum = 0;
 }
 
 function addMealToTable(meal,parent) {
@@ -66,6 +85,13 @@ function addMealToTableRow(meal,type,row) {
   var newMealColumn = document.createElement('td');
   newMealColumn.innerText = meal[type];
   row.appendChild(newMealColumn);
+}
+
+var sum = 0;
+
+function countCalories(calorie) {
+  console.log(calorie);
+  sum += calorie;
 }
 
 refresh();

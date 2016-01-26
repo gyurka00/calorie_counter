@@ -16,6 +16,14 @@ app.get("/meals", function (req, res) {
   });
 });
 
+app.get("/meals/filter/:date", function (req, res) {
+  console.log(req.params.date);
+  items.get(req.params.date, function(result) {
+    res.status(200).json(result);
+  });
+});
+
+
 app.post("/meals", function (req, res) {
   items.add(req.body, function(item) {
     res.status(201).json(item);

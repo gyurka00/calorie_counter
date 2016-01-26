@@ -5,7 +5,8 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: 'test',
   password: 'test',
-  database: 'meals'
+  database: 'meals',
+  timezone: 'utc'
 });
 
 function allItems(callback) {
@@ -29,9 +30,17 @@ function removeItem(id,callback) {
   });
 }
 
+function getFilter(date, callback) {
+  connection.query('SELECT meal_id,name,calories,date FROM meals WHERE CAST(date AS DATE)=?;', date, function(err, result) {
+    if (err) throw err;
+    callback(result);
+  });
+}
+
 
 module.exports = {
   add: addItem,
   all: allItems,
-  remove: removeItem
+  remove: removeItem,
+  get: getFilter,
 };
