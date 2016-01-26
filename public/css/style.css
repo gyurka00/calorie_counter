@@ -1,0 +1,25 @@
+body {
+    background-color: #e9daac;
+    min-width: 240px;
+}
+
+button{
+  border-radius: 3vw;
+  margin: 3px;
+}
+
+input{
+  opacity: 1;
+}
+
+table {
+  width: 100%;
+}
+
+.main-container, .meal-container{
+  background-color: rgba(51, 49, 65, .65);
+  border-radius: 3vw;
+  text-align: center;
+  margin: 10vw;
+  padding: 3vw;
+}
