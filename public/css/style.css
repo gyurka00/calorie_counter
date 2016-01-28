@@ -1,6 +1,7 @@
 body {
-    background-color: #e9daac;
-    min-width: 240px;
+  background-image: url('../img/bckgrd.jpg');
+  /*background-color: #e9daac;*/
+  min-width: 240px;
 }
 
 button{
@@ -8,12 +9,26 @@ button{
   margin: 3px;
 }
 
-input{
+input, textarea{
+  font-family: monospace;
+  border-color: rgb(169, 169, 169);
   opacity: 1;
 }
 
 table {
   width: 100%;
+}
+
+select {
+  margin: 5vw;
+}
+
+.meal-container, h1, div {
+  color: #dddddd;
+}
+
+select, textarea, input {
+  height: 15px !important;
 }
 
 .main-container, .meal-container{

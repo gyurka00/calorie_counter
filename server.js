@@ -3,6 +3,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var items = require("./items.js");
+var users = require("./users.js");
 
 var app = express();
 
@@ -10,31 +11,11 @@ app.use(logRequest);
 app.use(express.static("public"));
 app.use(bodyParser.json());
 
-app.get("/meals", function (req, res) {
-  items.all(function(result) {
-    res.status(200).json(result);
-  });
-});
-
-app.get("/meals/filter/:date", function (req, res) {
-  console.log(req.params.date);
-  items.get(req.params.date, function(result) {
-    res.status(200).json(result);
-  });
-});
-
-
-app.post("/meals", function (req, res) {
-  items.add(req.body, function(item) {
-    res.status(201).json(item);
-  });
-});
-
-app.delete("/todos/:id", function (req, res) {
-  items.remove(req.params.id, function(item) {
-    res.status(200).json(item);
-  });
-});
+app.get("/meals/users/:user", items.all);
+app.get("/meals/users", users.all);
+app.get("/meals/:user/:date",items.get);
+app.post("/meals", items.add);
+app.delete("/meals/:id", items.remove);
 
 var port = parseInt(process.env.PORT || "3000")
 app.listen(port, function () {

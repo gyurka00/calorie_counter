@@ -12,22 +12,27 @@ var filterDate = document.querySelector('.filter-date');
 var mealTable = document.querySelector('.meal-table');
 var mealContainer = document.querySelector('.meal-container');
 var sumCalories = document.querySelector('.sum-calories');
+var users = document.querySelector('.users');
+
+users.addEventListener('change', function(user) {
+  refresh();
+});
 
 submitButton.addEventListener('click', function() {
-  var message = {name: foodName.value, calories: foodCalories.value, date: date.value};
-  sendPost(url,message, refresh);
+  var message = {name: foodName.value, calories: foodCalories.value, date: date.value, user: users.value};
+  sendPost(url, message, refresh);
   foodName.value = '';
   foodCalories.value = '';
   date.value = '';
 });
 
 filterAllButton.addEventListener('click', function() {
-  refresh();
+  refresh(users.value);
   filterDate.value= '';
 });
 
 filterButton.addEventListener('click', function() {
-  var newUrl = url + '/filter/' + filterDate.value;
+  var newUrl = url + '/' + users.value + '/' + filterDate.value;
   sendGET(newUrl, draweMeals);
 });
 
@@ -55,10 +60,21 @@ function sendPost(url, message, callback) {
   }
 }
 
-function refresh() {
-  sendGET(url,draweMeals);
+function refresh(user) {
+  var newUrl = url + '/users/' + users.value;
+  sendGET(newUrl, draweMeals);
 }
 
+function refreshUser() {
+  sendGET(url+ '/users',draweUsers);
+}
+
+var draweUsers = function (response) {
+  var usersArray = JSON.parse(response);
+  usersArray.forEach(function (user) {
+    addUser(user);
+  });
+}
 
 var draweMeals = function (response) {
   var mealArray = JSON.parse(response);
@@ -70,6 +86,12 @@ var draweMeals = function (response) {
   sumCalories.innerText = 'Sum of calories: ' + sum;
   mealContainer.appendChild(sumCalories);
   sum = 0;
+}
+
+function addUser(user) {
+  var newUser = document.createElement('option')
+  newUser.innerText = user.name;
+  users.appendChild(newUser);
 }
 
 function addMealToTable(meal,parent) {
@@ -90,8 +112,7 @@ function addMealToTableRow(meal,type,row) {
 var sum = 0;
 
 function countCalories(calorie) {
-  console.log(calorie);
   sum += calorie;
 }
 
-refresh();
+refreshUser();

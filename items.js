@@ -1,42 +1,41 @@
 'use strict';
 
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'test',
-  password: 'test',
-  database: 'meals',
-  timezone: 'utc'
-});
+var connection = require("./database_connection.js");
 
-function allItems(callback) {
-  connection.query('SELECT meal_id,name,calories,date FROM meals;', function(err, result){
+function allItems(req, res) {
+  connection.conn.query('SELECT meals.meal_id,meals.name,meals.calories,meals.date FROM meals, user WHERE user.user_id= meals.user_id AND user.name=?;', req.params.user, function(err, result){
+    if (err) throw err;
+    res.status(200).json(result);
+  });
+}
+
+function addItem(req, res) {
+  connection.conn.query('SELECT user_id FROM user WHERE name=?', req.body.user, function(err, result){
+    if (req.body.date !== '') {
+    var data = {name: req.body.name, calories: req.body.calories, date: req.body.date, user_id: result[0].user_id};
+  } else {
+    var data = {name: req.body.name, calories: req.body.calories, user_id: result[0].user_id};
+  }
+    connection.conn.query('INSERT INTO meals SET ?', data, function(err, insertResult){
       if (err) throw err;
-      callback(result);
+      res.status(201).json(insertResult);
     });
-}
-
-function addItem(data, callback) {
-  connection.query('INSERT INTO meals SET ?', data, function(err, result){
-    if (err) throw err;
-    callback(result);
   });
 }
 
-function removeItem(id,callback) {
-  connection.query('DELETE FROM meals WHERE meal_id=?', id, function(err, result){
+function removeItem(req, res) {
+  connection.conn.query('DELETE FROM meals WHERE meal_id=?', req.arams.id, function(err, result){
     if (err) throw err;
-    callback(result);
+    res.status(200).json(item);
   });
 }
 
-function getFilter(date, callback) {
-  connection.query('SELECT meal_id,name,calories,date FROM meals WHERE CAST(date AS DATE)=?;', date, function(err, result) {
+function getFilter(req,res) {
+  connection.conn.query('SELECT meals.meal_id, meals.name, meals.calories, meals.date FROM meals, user WHERE CAST(meals.date AS DATE)=? AND user.user_id= meals.user_id AND user.name=?;', [req.params.date, req.params.user], function(err, result) {
     if (err) throw err;
-    callback(result);
+    res.status(200).json(result);
   });
 }
-
 
 module.exports = {
   add: addItem,

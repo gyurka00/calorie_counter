@@ -8,8 +8,13 @@
   <body>
     <div class="main-container">
       <h1>Calorie counter</h1>
+      <div>Choose a user:
+        <select class="users">
+          <option disabled selected>Chouuse a user</option>
+        </select>
+      </div>
       <textarea class="food-name" placeholder="Write the food name"></textarea>
-      <textarea class="food-calories" placeholder="Write the calories"></textarea>
+      <input type ="number" class="food-calories" placeholder="Write the calories"></input>
       <input type="datetime-local" class="date">
       <button class="submit-button" type="button">Submit</button>
       <div class="meal-container">
