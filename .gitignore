@@ -1,0 +1,9 @@
+*.psd
+*.pyc
+__pycache__
+*.pptx
+*.pdf
+*.docx
+*.json
+*.otf
+node_modules
