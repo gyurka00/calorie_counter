@@ -1,8 +1,0 @@
-*.psd
-*.pyc
-__pycache__
-*.pptx
-*.pdf
-*.docx
-*.json
-node_modules
