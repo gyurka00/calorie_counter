@@ -1,7 +1,19 @@
+@font-face {
+  font-family: museo-sons;
+  src: url(MuseoSans_500.otf);
+}
+
+* {
+  font-family: museo-sons, sans-serif;
+  color: #3C3B3B;
+}
+
 body {
   background-image: url('../img/bckgrd.jpg');
-  /*background-color: #e9daac;*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   min-width: 240px;
+  width: 100%;
 }
 
 button{
@@ -9,10 +21,9 @@ button{
   margin: 3px;
 }
 
-input, textarea{
-  font-family: monospace;
+input{
+  height: 15px;
   border-color: rgb(169, 169, 169);
-  opacity: 1;
 }
 
 table {
@@ -24,17 +35,25 @@ select {
 }
 
 .meal-container, h1, div {
-  color: #dddddd;
+  color: #3C3B3B;
 }
 
-select, textarea, input {
+select, input {
   height: 15px !important;
+  border-color: transparent;
 }
 
 .main-container, .meal-container{
-  background-color: rgba(51, 49, 65, .65);
+  /*background-color: rgba(51, 49, 65, .65);*/
+  background-color: rgba(255, 255, 255, .65);
+  /*background-color: white;
+  opacity: 0.5;*/
   border-radius: 3vw;
   text-align: center;
   margin: 10vw;
   padding: 3vw;
+}
+
+.change-user {
+  cursor: pointer;
 }

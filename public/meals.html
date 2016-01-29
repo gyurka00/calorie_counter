@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Calorie counter</title>
+    <link rel="stylesheet" href="css/style.css" charset="utf-8">
+  </head>
+  <body>
+    <div class="main-container">
+      <h1>Calorie counter</h1>
+      <input type ="text" class="food-name" placeholder="Write the food name"></input>
+      <input type ="number" class="food-calories" placeholder="Write the calories"></input>
+      <input type="datetime-local" class="date">
+      <button class="submit-button" type="button">Submit</button>
+      <div class="meal-container">
+        <table class="meal-table">
+          <input type="date" class="filter-date">
+          <button class="filter-button" type="button">Filter</button>
+          <button class="filter-all-button" type="button">All</button>
+          <tr>
+            <td>Name</td>
+            <td>Calories</td>
+            <td>Date</td>
+          </tr>
+        </table>
+        <p class="sum-calories"></p>
+      </div>
+      <h3 class="change-user">Change user</h3>
+      <script type="text/javascript" src="js/counter.js"></script>
+    </div>
+  </body>
+</html>

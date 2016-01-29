@@ -12,14 +12,28 @@ var filterDate = document.querySelector('.filter-date');
 var mealTable = document.querySelector('.meal-table');
 var mealContainer = document.querySelector('.meal-container');
 var sumCalories = document.querySelector('.sum-calories');
-var users = document.querySelector('.users');
+var changeUser = document.querySelector('.change-user');
 
-users.addEventListener('change', function(user) {
-  refresh();
+var user= getQueryUser('user');
+
+function getQueryUser(key) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == key) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query key %s not found', key);
+}
+
+changeUser.addEventListener('click', function() {
+  window.location = '/index.html';
 });
 
 submitButton.addEventListener('click', function() {
-  var message = {name: foodName.value, calories: foodCalories.value, date: date.value, user: users.value};
+  var message = {name: foodName.value, calories: foodCalories.value, date: date.value, user: user};
   sendPost(url, message, refresh);
   foodName.value = '';
   foodCalories.value = '';
@@ -27,12 +41,12 @@ submitButton.addEventListener('click', function() {
 });
 
 filterAllButton.addEventListener('click', function() {
-  refresh(users.value);
+  refresh(user);
   filterDate.value= '';
 });
 
 filterButton.addEventListener('click', function() {
-  var newUrl = url + '/' + users.value + '/' + filterDate.value;
+  var newUrl = url + '/' + user + '/' + filterDate.value;
   sendGET(newUrl, draweMeals);
 });
 
@@ -61,19 +75,8 @@ function sendPost(url, message, callback) {
 }
 
 function refresh(user) {
-  var newUrl = url + '/users/' + users.value;
+  var newUrl = url + '/users/' + user;
   sendGET(newUrl, draweMeals);
-}
-
-function refreshUser() {
-  sendGET(url+ '/users',draweUsers);
-}
-
-var draweUsers = function (response) {
-  var usersArray = JSON.parse(response);
-  usersArray.forEach(function (user) {
-    addUser(user);
-  });
 }
 
 var draweMeals = function (response) {
@@ -86,12 +89,6 @@ var draweMeals = function (response) {
   sumCalories.innerText = 'Sum of calories: ' + sum;
   mealContainer.appendChild(sumCalories);
   sum = 0;
-}
-
-function addUser(user) {
-  var newUser = document.createElement('option')
-  newUser.innerText = user.name;
-  users.appendChild(newUser);
 }
 
 function addMealToTable(meal,parent) {
@@ -115,4 +112,5 @@ function countCalories(calorie) {
   sum += calorie;
 }
 
-refreshUser();
+console.log(user);
+refresh(user);
