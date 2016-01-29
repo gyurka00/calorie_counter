@@ -47,7 +47,12 @@ filterAllButton.addEventListener('click', function() {
 
 filterButton.addEventListener('click', function() {
   var newUrl = url + '/' + user + '/' + filterDate.value;
-  sendGET(newUrl, draweMeals);
+  sendGET(newUrl, refresh);
+});
+
+mealTable.addEventListener('click', function(e) {
+  var newUrl = url + '/' + e.path[2].id;
+  sendDELETE(newUrl, user, refresh);
 });
 
 function refresh(user) {
@@ -74,6 +79,7 @@ function addMealToTable(meal,parent) {
   addMealToTableRow(meal,'name',newMealRow);
   addMealToTableRow(meal,'calories',newMealRow);
   addMealToTableRow(meal,'date',newMealRow);
+  createDeleteButton(newMealRow);
 }
 
 function addMealToTableRow(meal,type,row) {
@@ -85,6 +91,16 @@ function addMealToTableRow(meal,type,row) {
     newMealColumn.innerText = meal[type];
   }
   row.appendChild(newMealColumn);
+}
+
+function createDeleteButton(row) {
+  var newElem = document.createElement('td');
+  var deleteButton = document.createElement('button');
+  deleteButton.setAttribute('class', 'hidden');
+  deleteButton.classList.add('delete-button');
+  deleteButton.innerText = 'X';
+  row.appendChild(newElem);
+  newElem.appendChild(deleteButton);
 }
 
 var sum = 0;

@@ -21,11 +21,6 @@ button{
   margin: 3px;
 }
 
-input{
-  height: 15px;
-  border-color: rgb(169, 169, 169);
-}
-
 table {
   width: 100%;
 }
@@ -39,7 +34,7 @@ select {
 }
 
 select, input {
-  height: 15px !important;
+  height: 20px !important;
   border-color: transparent;
 }
 
@@ -56,4 +51,11 @@ select, input {
 
 .change-user {
   cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+}
+tr:hover .delete-button{
+  visibility: visible;
 }

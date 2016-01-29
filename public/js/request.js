@@ -18,7 +18,18 @@ function sendPost(url, message, callback) {
   mealsRequest .send(JSON.stringify(message));
   mealsRequest .onreadystatechange = function () {
     if (mealsRequest .readyState === 4) {
-      callback();
+      callback(message.user);
+    }
+  }
+}
+
+function sendDELETE(url, user, callback) {
+  var mealsRequest = new XMLHttpRequest();
+  mealsRequest .open('DELETE', url);
+  mealsRequest .send();
+  mealsRequest .onreadystatechange = function () {
+    if (mealsRequest .readyState === 4) {
+      callback(user);
     }
   }
 }

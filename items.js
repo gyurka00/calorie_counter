@@ -24,9 +24,9 @@ function addItem(req, res) {
 }
 
 function removeItem(req, res) {
-  connection.conn.query('DELETE FROM meals WHERE meal_id=?', req.arams.id, function(err, result){
+  connection.conn.query('DELETE FROM meals WHERE meal_id=?', req.params.id, function(err, result){
     if (err) throw err;
-    res.status(200).json(item);
+    res.status(200).json(result);
   });
 }
 
