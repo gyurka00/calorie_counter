@@ -50,30 +50,6 @@ filterButton.addEventListener('click', function() {
   sendGET(newUrl, draweMeals);
 });
 
-
-function sendGET(url,callback) {
-  var mealsRequest = new XMLHttpRequest();
-  mealsRequest .open('GET', url);
-  mealsRequest .send();
-  mealsRequest .onreadystatechange = function () {
-    if (mealsRequest .readyState === 4) {
-      callback(mealsRequest.response);
-    }
-  }
-}
-
-function sendPost(url, message, callback) {
-  var mealsRequest = new XMLHttpRequest();
-  mealsRequest .open('POST', url);
-  mealsRequest .setRequestHeader('Content-Type','application/json');
-  mealsRequest .send(JSON.stringify(message));
-  mealsRequest .onreadystatechange = function () {
-    if (mealsRequest .readyState === 4) {
-      callback();
-    }
-  }
-}
-
 function refresh(user) {
   var newUrl = url + '/users/' + user;
   sendGET(newUrl, draweMeals);
@@ -102,7 +78,12 @@ function addMealToTable(meal,parent) {
 
 function addMealToTableRow(meal,type,row) {
   var newMealColumn = document.createElement('td');
-  newMealColumn.innerText = meal[type];
+  if (type === 'date') {
+    var datetime = meal[type].split('T');
+    newMealColumn.innerText = datetime[0] + ', ' + datetime[1].substring(0,8);
+  }else {
+    newMealColumn.innerText = meal[type];
+  }
   row.appendChild(newMealColumn);
 }
 
@@ -112,5 +93,4 @@ function countCalories(calorie) {
   sum += calorie;
 }
 
-console.log(user);
 refresh(user);

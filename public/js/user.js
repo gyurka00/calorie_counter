@@ -19,17 +19,6 @@ var draweUsers = function (response) {
   });
 }
 
-function sendGET(url,callback) {
-  var mealsRequest = new XMLHttpRequest();
-  mealsRequest .open('GET', url);
-  mealsRequest .send();
-  mealsRequest .onreadystatechange = function () {
-    if (mealsRequest .readyState === 4) {
-      callback(mealsRequest.response);
-    }
-  }
-}
-
 function addUser(user) {
   var newUser = document.createElement('option')
   newUser.innerText = user.name;
