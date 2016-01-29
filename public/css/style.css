@@ -4,14 +4,14 @@
 }
 
 * {
-  font-family: museo-sons, sans-serif;
   color: #3C3B3B;
+  font-family: museo-sons, sans-serif;
 }
 
 body {
+  background-attachment: fixed;
   background-image: url('../img/bckgrd.jpg');
   background-repeat: no-repeat;
-  background-attachment: fixed;
   min-width: 240px;
   width: 100%;
 }
@@ -34,15 +34,12 @@ select {
 }
 
 select, input {
-  height: 20px !important;
   border-color: transparent;
+  height: 20px !important;
 }
 
 .main-container, .meal-container{
-  /*background-color: rgba(51, 49, 65, .65);*/
   background-color: rgba(255, 255, 255, .65);
-  /*background-color: white;
-  opacity: 0.5;*/
   border-radius: 3vw;
   text-align: center;
   margin: 10vw;

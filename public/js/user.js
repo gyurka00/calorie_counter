@@ -4,12 +4,11 @@ var url = 'http://localhost:3000/meals';
 var users = document.querySelector('.users');
 
 users.addEventListener('change', function(e) {
-  console.log(e);
   window.location = '/meals.html?user='+ e.target.value;
 });
 
 function refreshUser() {
-  sendGET(url+ '/users', draweUsers);
+  sendRequest('GET', url+ '/users', undefined, undefined, draweUsers);
 }
 
 var draweUsers = function (response) {

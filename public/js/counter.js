@@ -34,7 +34,7 @@ changeUser.addEventListener('click', function() {
 
 submitButton.addEventListener('click', function() {
   var message = {name: foodName.value, calories: foodCalories.value, date: date.value, user: user};
-  sendPost(url, message, refresh);
+  sendRequest('POST', url, message, user, refresh);
   foodName.value = '';
   foodCalories.value = '';
   date.value = '';
@@ -47,17 +47,17 @@ filterAllButton.addEventListener('click', function() {
 
 filterButton.addEventListener('click', function() {
   var newUrl = url + '/' + user + '/' + filterDate.value;
-  sendGET(newUrl, refresh);
+  sendRequest('GET', newUrl, undefined, undefined, refresh);
 });
 
 mealTable.addEventListener('click', function(e) {
   var newUrl = url + '/' + e.path[2].id;
-  sendDELETE(newUrl, user, refresh);
+  sendRequest('DELETE', newUrl, undefined, user, refresh);
 });
 
 function refresh(user) {
   var newUrl = url + '/users/' + user;
-  sendGET(newUrl, draweMeals);
+  sendRequest('GET', newUrl, undefined, undefined, draweMeals);
 }
 
 var draweMeals = function (response) {
