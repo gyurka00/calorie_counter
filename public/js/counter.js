@@ -47,7 +47,7 @@ filterAllButton.addEventListener('click', function() {
 
 filterButton.addEventListener('click', function() {
   var newUrl = url + '/' + user + '/' + filterDate.value;
-  sendRequest('GET', newUrl, undefined, undefined, refresh);
+  sendRequest('GET', newUrl, undefined, undefined, draweMeals);
 });
 
 mealTable.addEventListener('click', function(e) {
